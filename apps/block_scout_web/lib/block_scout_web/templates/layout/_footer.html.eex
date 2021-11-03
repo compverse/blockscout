@@ -1,0 +1,71 @@
+<footer class="footer">
+  <div class="footer-body container">
+    <!-- Logo -->
+    <div class="row footer-logo-row">
+      <div class="col-md-12">
+        <%= link to: webapp_url(@conn), class: "footer-brand" do %>
+          <img class="footer-logo" src="<%= static_path(@conn, logo_footer()) %>" alt="<%= subnetwork_title() %>" />
+          <%= if logo_text() do %>
+            <span class="logo-text footer"> <%= logo_text() %> </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <% other_explorers = other_explorers() %>
+    <% col_size = if Enum.empty?(other_explorers), do: 3, else: 2 %>
+
+    <div class="row">
+      <div class="col-xs-12 col-lg-3">
+        <p class="footer-info-text"><%= gettext("Global Intelligent Computing Power Network. Blockchain explorer for Compverse Networks.") %></p>
+        <div class="footer-social-icons">
+          <a href="https://github.com/compverse/blockscout" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Github") %>'>
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+      <% main_nets = main_nets(other_networks()) %>
+
+      <%= unless Enum.empty?(main_nets) do %>
+      <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="https://compverse.io/" rel="noreferrer" class="footer-link">Website</a></li>
+          <li><a href="https://docs.compverse.io/" rel="noreferrer" class="footer-link">Developer Doc </a></li>
+        </ul>
+      </div>
+      <% end %>
+
+      <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
+        <h3>Tools</h3>
+        <ul>
+          <li><a href="https://www.compverse.io/" rel="noreferrer" class="footer-link">Wallet</a></li>
+          <li><a href="https://faucet.compverse.io/" rel="noreferrer" class="footer-link">Faucet</a></li>
+        </ul>
+      </div>
+
+      <% test_nets = test_nets(other_networks()) %>
+
+      <%= unless Enum.empty?(test_nets) do %>
+        <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
+          <h3>Networks</h3>
+          <ul>
+            <li><a href="https://scan.compverse.io/" rel="noreferrer" class="footer-link">Mainnet</a></li>
+            <li><a href="https://pegasus.compverse.io/" rel="noreferrer" class="footer-link">Testnet</a></li>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= unless Enum.empty?(other_explorers) do %>
+        <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
+          <h3><%= gettext("Other Explorers") %></h3>
+          <ul>
+            <%= for {name, url} <- other_explorers do %>
+              <li><a href="<%= url %>" rel="noreferrer" class="footer-link"> <%= name %> </a></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</footer>
